@@ -27,7 +27,7 @@ Make sure you have Rust and Cargo installed on your machine before running the s
 ## Project Structure
 
 The repository is organized by days, with each day having its own dedicated directory (day1, day2, ..., day25). Within each day's directory, you'll find the Rust source code, and any other necessary resources.
-
+```
 .
 └── advent_of_code-2023/
     ├── day-01/
@@ -52,7 +52,7 @@ The repository is organized by days, with each day having its own dedicated dire
             │   └── part2.rs
             ├── Cargo.lock
             └── Cargo.toml
-
+```
 
 ## Notes
 
