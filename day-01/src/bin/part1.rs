@@ -32,7 +32,10 @@ fn part1(input: &str) -> u32 {
         }
     }
     // Return the sum of the array of first numbers
-    last_numbers.iter().sum()
+    let calibration_values: Vec<u32> = concatenate_values(first_numbers, last_numbers);
+    println!("{:?}", calibration_values);
+    calibration_values.iter().sum()
+
 }
 
 // The output is wrapped in a Result to allow matching on errors
@@ -41,6 +44,26 @@ fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where P: AsRef<Path>, {
     let file = File::open(filename)?;
     Ok(io::BufReader::new(file).lines())
+}
+
+fn concatenate_values(first_numbers: Vec<u32>, last_numbers: Vec<u32>) -> Vec<u32> {
+    // Ensure that the input vectors have the same length
+    if first_numbers.len() != last_numbers.len() {
+        panic!("Input vectors must have the same length");
+    }
+
+    // Use zip to iterate over pairs of elements from both vectors
+    let concatenated_values: Vec<u32> = first_numbers
+        .into_iter()
+        .zip(last_numbers.into_iter())
+        .map(|(first, last)| {
+            // Concatenate the numbers by multiplying the first by 10^d where d is the number of digits in the last
+            let digits_in_last = (last as f64).log10().floor() as u32 + 1;
+            first * 10u32.pow(digits_in_last) + last
+        })
+        .collect();
+
+    concatenated_values
 }
 
 // Function to extract the first number from a string
@@ -72,6 +95,6 @@ mod tests {
     #[test]
     fn it_works() {
         let result: u32 = part1("./input1.txt");
-        assert_eq!(result, 12);
+        assert_eq!(result, 142);
     }
 }
