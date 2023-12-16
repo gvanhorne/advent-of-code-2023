@@ -18,7 +18,7 @@ To explore the solutions, simply navigate to the corresponding day's folder. Eac
 For each day, you can run the solution using the following commands:
 
 ```bash
-cd day1      # Change to the day's directory
+cd day-01      # Change to the day's directory
 cargo run    # Run the solution using Cargo
 ```
 
