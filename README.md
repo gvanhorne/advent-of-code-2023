@@ -1,6 +1,6 @@
 # Advent of Code 2023 - Rust Solutions
 
-Welcome to my repository for the Advent of Code 2023 event! This repository contains my solutions to the daily coding puzzles from December 1st to December 25th. I've decided to use Rust for this year's event as a way to learn and improve my skills in the language.
+Welcome to my repository for the [Advent of Code 2023 event](https://adventofcode.com/)! This repository contains my solutions to the daily coding puzzles from December 1st to December 25th. I've decided to use Rust for this year's event as a way to learn and improve my skills in the language.
 
 ## Table of Contents
 
