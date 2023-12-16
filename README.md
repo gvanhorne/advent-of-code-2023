@@ -1,6 +1,6 @@
 # Advent of Code 2023 - Rust Solutions
 
-Welcome to my repository for the Advent of Code 2023 event! This repository contains my solutions to the daily coding puzzles from December 1st to December 25th. I've decided to use Rust for this year's event as a way to learn and improve my skills in the language.
+Welcome to my repository for the [Advent of Code 2023 event](https://adventofcode.com/)! This repository contains my solutions to the daily coding puzzles from December 1st to December 25th. I've decided to use Rust for this year's event as a way to learn and improve my skills in the language.
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@ To explore the solutions, simply navigate to the corresponding day's folder. Eac
 For each day, you can run the solution using the following commands:
 
 ```bash
-cd day1      # Change to the day's directory
+cd day-01      # Change to the day's directory
 cargo run    # Run the solution using Cargo
 ```
 
