@@ -33,7 +33,6 @@ fn part1(input: &str) -> u32 {
     }
     // Return the sum of the array of first numbers
     let calibration_values: Vec<u32> = concatenate_values(first_numbers, last_numbers);
-    println!("{:?}", calibration_values);
     calibration_values.iter().sum()
 
 }
@@ -93,8 +92,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
+    fn input1_works() {
         let result: u32 = part1("./input1.txt");
         assert_eq!(result, 142);
+    }
+
+    #[test]
+    fn input2_works() {
+        let result: u32 = part1("./input2.txt");
+        assert_eq!(result, 52974);
     }
 }
