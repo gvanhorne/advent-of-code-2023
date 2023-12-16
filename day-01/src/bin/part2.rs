@@ -88,6 +88,14 @@ fn find_min_index_tuple(numbers: &[(u32, usize)]) -> Option<(u32, usize)> {
     }
 }
 
+fn find_max_index_tuple(numbers: &[(u32, usize)]) -> Option<(u32, usize)> {
+    if let Some(&max_tuple) = numbers.iter().max_by_key(|&&(_, index)| index) {
+        Some(max_tuple)
+    } else {
+        None
+    }
+}
+
 fn extract_first_number(s: &str) -> Option<u32> {
     // Find the position of the first digit in the string
     let spelled_out_numbers = find_number_substrings_with_index(s);
@@ -105,6 +113,29 @@ fn extract_first_number(s: &str) -> Option<u32> {
     }
 }
 
+fn extract_last_number(s: &str) -> Option<u32> {
+    // Find the position of the first digit in the string
+    let spelled_out_numbers = find_number_substrings_with_index(s);
+    let max_spelled_number = find_max_index_tuple(&spelled_out_numbers);
+    let char_vec: Vec<char> = s.chars().collect();
+
+    // Find the position of the last digit in the string
+    if let Some(index) = char_vec.iter().rposition(|c| c.is_digit(10)) {
+        // Check if there are spelled-out numbers with higher indices
+        if let Some((max_value, max_index)) = max_spelled_number {
+            return Some(if index > max_index {
+                s.chars().nth(index).map(|c| c.to_digit(10)).flatten()?
+            } else {
+                max_value
+            });
+        } else {
+            return s.chars().nth(index).map(|c| c.to_digit(10)).flatten();
+        }
+    } else {
+        return max_spelled_number.map(|(max_value, _)| max_value);
+    }
+}
+
 
 fn word_to_digit(word: &str) -> Option<u32> {
     match word.to_lowercase().as_str() {
@@ -118,17 +149,6 @@ fn word_to_digit(word: &str) -> Option<u32> {
         "eight" => Some(8),
         "nine" => Some(9),
         _ => None,
-    }
-}
-
-fn extract_last_number(s: &str) -> Option<u32> {
-    let char_vec: Vec<char> = s.chars().collect();
-    // Find the position of the last digit in the string
-    if let Some(index) = char_vec.iter().rposition(|c| c.is_digit(10)) {
-        // Try to parse the substring as a u32
-        s.chars().nth(index).map(|c| c.to_digit(10)).flatten()
-    } else {
-        None // No digit found in the string
     }
 }
 
