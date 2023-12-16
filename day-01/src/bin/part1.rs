@@ -3,18 +3,22 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 fn main() {
-    let output: String = part1("./input1.txt");
+    let output: u32 = part1("./input1.txt");
     dbg!(output);
 }
 
-fn part1(input: &str) -> String {
+fn part1(input: &str) -> u32 {
+    let mut first_numbers: Vec<u32> = Vec::new();
     // read each line
     match read_lines(input) {
         Ok(lines) => {
             // Consumes the iterator, returns an (Optional) String
             for line in lines {
                 if let Ok(ip) = line {
-                    println!("{}", ip);
+                    if let Some(first_number) = extract_first_number(&ip) {
+                        // Add the first number to the array
+                        first_numbers.push(first_number);
+                    }
                 }
             }
         }
@@ -22,8 +26,8 @@ fn part1(input: &str) -> String {
             eprintln!("Error reading lines from file: {}", err);
         }
     }
-    "142".to_string()
-    // get the first and last integer of each line
+    // Return the sum of the array of first numbers
+    first_numbers.iter().sum()
 }
 
 // The output is wrapped in a Result to allow matching on errors
@@ -34,13 +38,24 @@ where P: AsRef<Path>, {
     Ok(io::BufReader::new(file).lines())
 }
 
+// Function to extract the first number from a string
+fn extract_first_number(s: &str) -> Option<u32> {
+    // Find the position of the first digit in the string
+    if let Some(index) = s.chars().position(|c| c.is_digit(10)) {
+        // Try to parse the substring as a u32
+        s.chars().nth(index).map(|c| c.to_digit(10)).flatten()
+    } else {
+        None // No digit found in the string
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn it_works() {
-        let result: String = part1("./input1.txt");
-        assert_eq!(result, "142".to_string());
+        let result: u32 = part1("./input1.txt");
+        assert_eq!(result, 12);
     }
 }
