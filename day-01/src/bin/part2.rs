@@ -65,13 +65,50 @@ fn concatenate_values(first_numbers: Vec<u32>, last_numbers: Vec<u32>) -> Vec<u3
     concatenated_values
 }
 
+fn find_number_substrings_with_index(s: &str) -> Vec<(u32, usize)> {
+    let mut result = Vec::new();
+
+    for start in 0..s.len() {
+        for end in start + 1..=s.len() {
+            let substring = &s[start..end];
+            if let Some(value) = word_to_digit(substring) {
+                result.push((value, start));
+            }
+        }
+    }
+
+    result
+}
+
+fn find_min_index_tuple(numbers: &[(u32, usize)]) -> Option<(u32, usize)> {
+    if let Some(&min_tuple) = numbers.iter().min_by_key(|&&(_, index)| index) {
+        Some(min_tuple)
+    } else {
+        None
+    }
+}
+
 fn extract_first_number(s: &str) -> Option<u32> {
     // Find the position of the first digit in the string
+    let spelled_out_numbers: Vec<(u32, usize)> = find_number_substrings_with_index(s);
+    let min_spelled_number: Option<(u32, usize)> = find_min_index_tuple(&spelled_out_numbers);
     if let Some(index) = s.chars().position(|c| c.is_digit(10)) {
-        // Try to parse the substring as a u32
-        s.chars().nth(index).map(|c| c.to_digit(10)).flatten()
+        // Check if there are spelled-out numbers with lower indices
+        if let Some((min_value, min_index)) = min_spelled_number {
+            if index < min_index {
+                return s.chars().nth(index).map(|c| c.to_digit(10)).flatten();
+            } else {
+                return Some(min_value);
+            }
+        } else {
+            return s.chars().nth(index).map(|c| c.to_digit(10)).flatten()
+        }
     } else {
-        None // No digit found in the string
+        if let Some((min_value, _)) = min_spelled_number {
+            return Some(min_value);
+        } else {
+            return None
+        }
     }
 }
 
