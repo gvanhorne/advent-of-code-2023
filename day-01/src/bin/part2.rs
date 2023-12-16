@@ -3,7 +3,7 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 fn main() {
-    let output: u32 = part1("./input3.txt");
+    let output: u32 = part1("./input2.txt");
     dbg!(output);
 }
 
