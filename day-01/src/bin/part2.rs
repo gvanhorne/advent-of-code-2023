@@ -65,7 +65,6 @@ fn concatenate_values(first_numbers: Vec<u32>, last_numbers: Vec<u32>) -> Vec<u3
     concatenated_values
 }
 
-// Function to extract the first number from a string
 fn extract_first_number(s: &str) -> Option<u32> {
     // Find the position of the first digit in the string
     if let Some(index) = s.chars().position(|c| c.is_digit(10)) {
@@ -73,6 +72,21 @@ fn extract_first_number(s: &str) -> Option<u32> {
         s.chars().nth(index).map(|c| c.to_digit(10)).flatten()
     } else {
         None // No digit found in the string
+    }
+}
+
+fn word_to_digit(word: &str) -> Option<u32> {
+    match word.to_lowercase().as_str() {
+        "one" => Some(1),
+        "two" => Some(2),
+        "three" => Some(3),
+        "four" => Some(4),
+        "five" => Some(5),
+        "six" => Some(6),
+        "seven" => Some(7),
+        "eight" => Some(8),
+        "nine" => Some(9),
+        _ => None,
     }
 }
 
@@ -95,5 +109,17 @@ mod tests {
     fn input3_works() {
         let result: u32 = part1("./input3.txt");
         assert_eq!(result, 281);
+    }
+
+    #[test]
+    fn word_to_digit_works() {
+        let mut result: Option<u32> = word_to_digit("one");
+        assert_eq!(result, Some(1));
+        result = word_to_digit("two");
+        assert_eq!(result, Some(2));
+        result = word_to_digit("seventeen");
+        assert_eq!(result, None);
+        result = word_to_digit("nine");
+        assert_eq!(result, Some(9));
     }
 }
