@@ -3,7 +3,7 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 fn main() {
-    let output: u32 = part1("./input2.txt");
+    let output: u32 = part1("./input3.txt");
     dbg!(output);
 }
 
@@ -92,14 +92,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn input1_works() {
-        let result: u32 = part1("./input1.txt");
-        assert_eq!(result, 142);
-    }
-
-    #[test]
-    fn input2_works() {
-        let result: u32 = part1("./input2.txt");
-        assert_eq!(result, 52974);
+    fn input3_works() {
+        let result: u32 = part1("./input3.txt");
+        assert_eq!(result, 281);
     }
 }
