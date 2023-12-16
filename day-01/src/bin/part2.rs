@@ -90,27 +90,21 @@ fn find_min_index_tuple(numbers: &[(u32, usize)]) -> Option<(u32, usize)> {
 
 fn extract_first_number(s: &str) -> Option<u32> {
     // Find the position of the first digit in the string
-    let spelled_out_numbers: Vec<(u32, usize)> = find_number_substrings_with_index(s);
-    let min_spelled_number: Option<(u32, usize)> = find_min_index_tuple(&spelled_out_numbers);
+    let spelled_out_numbers = find_number_substrings_with_index(s);
+    let min_spelled_number = find_min_index_tuple(&spelled_out_numbers);
+
     if let Some(index) = s.chars().position(|c| c.is_digit(10)) {
         // Check if there are spelled-out numbers with lower indices
         if let Some((min_value, min_index)) = min_spelled_number {
-            if index < min_index {
-                return s.chars().nth(index).map(|c| c.to_digit(10)).flatten();
-            } else {
-                return Some(min_value);
-            }
+            return Some(if index < min_index { s.chars().nth(index).map(|c| c.to_digit(10)).flatten()? } else { min_value });
         } else {
-            return s.chars().nth(index).map(|c| c.to_digit(10)).flatten()
+            return s.chars().nth(index).map(|c| c.to_digit(10)).flatten();
         }
     } else {
-        if let Some((min_value, _)) = min_spelled_number {
-            return Some(min_value);
-        } else {
-            return None
-        }
+        return min_spelled_number.map(|(min_value, _)| min_value);
     }
 }
+
 
 fn word_to_digit(word: &str) -> Option<u32> {
     match word.to_lowercase().as_str() {
