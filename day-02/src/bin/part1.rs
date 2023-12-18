@@ -58,7 +58,7 @@ fn valid_game(input: &str) -> bool {
 }
 
 fn main() {
-    let file = include_str!("../../input1.txt");
+    let file = include_str!("../../input2.txt");
     let result = process(file);
     println!("{}", result);
 }
@@ -72,5 +72,12 @@ mod tests {
         let file = include_str!("../../input1.txt");
         let result = process(file);
         assert_eq!(result, 8);
+    }
+
+    #[test]
+    fn input2_works() {
+        let file = include_str!("../../input2.txt");
+        let result = process(file);
+        assert_eq!(result, 2776);
     }
 }
